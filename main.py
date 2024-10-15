@@ -9,7 +9,7 @@ y = 800
 colors = {'green': '2', 'blue': 'z', 'red': '0', 'yellow': '.'}
 
 text_word = None
-last_time = time.time()
+last_time = None
 times = []
 
 # Function to generate random colors and text
@@ -47,11 +47,10 @@ def on_key(event):
     else:
         print("Wrong!")
         change_colors()
-        sum = 0
-        for t in times:
-            sum += t
-        print(sum / len(times))
-    times.append(time.time() - last_time)
+
+    if last_time is not None:
+        times.append(time.time() - last_time)
+        print(times[-1])
     last_time = time.time()
 
 # Initialize tkinter window
