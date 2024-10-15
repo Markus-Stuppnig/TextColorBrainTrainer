@@ -1,5 +1,6 @@
 import tkinter as tk
 import random
+import time
 
 x = 1000
 y = 800
@@ -8,6 +9,8 @@ y = 800
 colors = {'green': '2', 'blue': 'z', 'red': '0', 'yellow': '.'}
 
 text_word = None
+last_time = time.time()
+times = []
 
 # Function to generate random colors and text
 def change_colors():
@@ -26,30 +29,38 @@ def change_colors():
     canvas.delete("all")
 
     # Generate random position for text
-    x_pos = random.randint(50, x - 50)
-    y_pos = random.randint(50, y - 50)
+    x_pos = 65 if random.randint(0, 1) == 0 else x - 65
+    y_pos = 65 if random.randint(0, 1) == 0 else y - 65
 
     # Draw a circle around the word (with random color)
-    canvas.create_oval(x_pos - 60, y_pos - 60, x_pos + 60, y_pos + 60, fill=bg_color, outline='')
+    canvas.create_oval(x_pos - 60, y_pos - 60, x_pos + 60, y_pos + 60, fill='', outline=bg_color, width=5)
 
     # Place the text in the circle
     canvas.create_text(x_pos, y_pos, text=text_word, fill=text_color, font=("Helvetica", 24))
 
 # Function to handle keypress events
 def on_key(event):
+    global last_time
     if event.char == colors[text_word]:
         print("Correct!")
         change_colors()
     else:
         print("Wrong!")
         change_colors()
+        sum = 0
+        for t in times:
+            sum += t
+        print(sum / len(times))
+    times.append(time.time() - last_time)
+    last_time = time.time()
 
 # Initialize tkinter window
 root = tk.Tk()
 root.geometry(f"{x}x{y}")
+root.config(bg="black")
 
 # Canvas to draw on
-canvas = tk.Canvas(root, width=x, height=y)
+canvas = tk.Canvas(root, width=x, height=y, bg="black", highlightthickness=0)
 canvas.pack()
 
 # Bind keys to the root window
