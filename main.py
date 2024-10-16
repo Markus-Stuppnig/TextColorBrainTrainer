@@ -6,7 +6,7 @@ x = 1000
 y = 800
 
 # List of colors and corresponding keys
-colors = {'green': '2', 'blue': 'z', 'red': '0', 'yellow': '.'}
+colors = {'green': '2', 'blue': '.', 'red': '0', 'yellow': 'z'}
 
 text_word = None
 last_time = None
