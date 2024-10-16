@@ -41,6 +41,8 @@ def change_colors():
 # Function to handle keypress events
 def on_key(event):
     global last_time
+    if text_word is None:
+        return
     if event.char == colors[text_word]:
         print("Correct!")
         change_colors()
